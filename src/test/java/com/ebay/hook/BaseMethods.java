@@ -23,12 +23,8 @@ public class BaseMethods implements BaseMethodInterface{
     }
 
     @Override
-    public EbayPage ebayPage (){
-        return new EbayPage ();
-    }
+    public EbayPage ebayPage (){ return new EbayPage (); }
 
     @Override
-    public WebElement findElement (WebElement element){
-        return wait.until (ExpectedConditions.visibilityOf (element));
-    }
+    public WebElement findElement (WebElement element){ return wait.until (ExpectedConditions.visibilityOf (element)); }
 }
