@@ -40,6 +40,13 @@ public class MainPage extends BaseMethods {
     }
 
     /**
+     * Checking the login process successfully finished
+     */
+    public void isLogin(){
+        Assert.assertTrue ("Login process is not finished successfully",findElement (mainModel.MAINPAGE_CAROUSEL).isDisplayed ());
+    }
+
+    /**
      * Register to the Ebay
      * @param firstName
      * @param lastName
