@@ -11,4 +11,4 @@ Feature: Register to the Ebay
 
     Examples:
     |first name|last name|email|password|
-    |User    |Name    |qfn47191@bcaoo.com|@123456User|
+    |User    |Name    |jqs26725@bcaoo.com|@123456User|
