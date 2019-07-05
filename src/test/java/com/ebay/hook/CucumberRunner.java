@@ -1,9 +1,12 @@
-package com.stylelabs.hook;
+package com.ebay.hook;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
+/**
+ * Setting up cucumber options
+ */
 @CucumberOptions(plugin = { "pretty",
 
         "html:target/site/cucumber-html-report",
@@ -14,7 +17,4 @@ import org.junit.runner.RunWith;
         features = "src/test/java/resources ", glue = { "" })
 @RunWith(Cucumber.class)
 public class CucumberRunner {
-    /**
-     * Setting up cucumber options
-     */
 }

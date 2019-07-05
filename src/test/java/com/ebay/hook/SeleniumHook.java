@@ -1,4 +1,4 @@
-package com.stylelabs.hook;
+package com.ebay.hook;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,10 +30,8 @@ public class SeleniumHook {
 
     /**
      * Setting browser with specific parameters
-     * @return
      */
-    private RemoteWebDriver  setUpBrowser (){
-        String browser = "chrome";
+    private void setUpBrowser (String browser){
         switch(browser){
             case "chrome":{
                 driver = (RemoteWebDriver)setDriver (setChromeDriver ());
@@ -58,14 +56,13 @@ public class SeleniumHook {
             default:
                 throw new IllegalStateException ("Unexpected value: " + browser);
         }
-        return driver;
     }
 
     /**
      * Getting driver
      * @return
      */
-    public WebDriver getDriver () {
+    WebDriver getDriver () {
         return driver;
     }
 
@@ -76,9 +73,9 @@ public class SeleniumHook {
      */
     private static WebDriver setDriver (RemoteWebDriver driver) {
         SeleniumHook.driver = driver;
-        driver.manage().timeouts().implicitlyWait (20L, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(20L, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(20L, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait (10L, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(10L, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(10L, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
 
@@ -88,9 +85,9 @@ public class SeleniumHook {
      * Setting wait option
      * @return
      */
-    public WebDriverWait getWait (){
-        WebDriverWait wait = new WebDriverWait(driver,60);
-        return wait;
+    WebDriverWait getWait (WebDriver driver){
+        return new WebDriverWait (driver,
+                10);
     }
 
     /**
@@ -99,7 +96,7 @@ public class SeleniumHook {
      */
     private ChromeDriver setChromeDriver (){
         ChromeOptions co = new ChromeOptions();
-        Map<String, Object> prefs = new HashMap<String, Object> ();
+        Map<String, Object> prefs = new HashMap<> ();
         LoggingPreferences logPrefs = new LoggingPreferences();
         logPrefs.enable (LogType.BROWSER, Level.ALL);
         co.setCapability (CapabilityType.LOGGING_PREFS, logPrefs);
@@ -154,7 +151,7 @@ public class SeleniumHook {
      * @return
      */
     private ChromeDriver setMobileBrowser (String device){
-        Map<String, String> mobileEmulation = new HashMap<String, String>();
+        Map<String, String> mobileEmulation = new HashMap<> ();
         switch(device){
             case ("android"):{
                 log.info("Device: "+device+" - Android");
@@ -177,16 +174,16 @@ public class SeleniumHook {
 
     /**
      * Setting up the browser driver
-     * @return
      */
-    public WebDriver setUpSettings(){
-        return setUpBrowser();
+    public void setUpSettings (String browser){
+        setUpBrowser (browser);
     }
 
     /**
      * Getting console details and closing the broser
      */
     public void tearDownTest(){
+        log.info ("---CONSOLE LOGS INFO FLOW IS STARTED---");
         try{
             LogEntries logEntries = driver.manage ().logs ().get (LogType.BROWSER);
             for (LogEntry entry : logEntries) {
@@ -195,6 +192,7 @@ public class SeleniumHook {
         }catch (Exception e){
             e.printStackTrace ();
         }
+        log.info ("---CONSOLE LOGS INFO FLOW IS FINISHED---");
         getDriver().quit();
     }
 
