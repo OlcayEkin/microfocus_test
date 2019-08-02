@@ -2,6 +2,7 @@ package com.ebay.steps;
 
 import com.ebay.hook.BaseMethods;
 import com.ebay.hook.SeleniumHook;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -18,9 +19,9 @@ public class StepDefinition {
      * Setting browser and page elements
      */
     @Before
-    public void setAll(){
+    public void setAll (Scenario scenario){
         hook = new SeleniumHook ();
-        hook.setUpSettings ("chrome");
+        hook.setUpBrowser ("chrome","BPM - "+scenario.getName ());
         baseMethods = new BaseMethods ();
     }
 
